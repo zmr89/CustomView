@@ -16,14 +16,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-
 import java.util.Calendar;
 
 public class ClockView extends View {
     private Drawable drawable;
-    private Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint paint;
     private Bitmap backgroundbitmap, backimagebitmap;
     private Paint mpaint;
     private int hourcolor, mincolor, seccolor, textcolor, dotcolor, backcolor;
@@ -88,7 +86,6 @@ public class ClockView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         if (getWidth() > 0 || getHeight() > 0) {
-
             initClock();
         }
     }
@@ -204,6 +201,7 @@ public class ClockView extends View {
         canvas.restore();
 
         paint.setColor(seccolor);
+
         canvas.save();
         canvas.rotate((6.0f * second) + ((millis / 1000.0f) * 6.0f), centerx, centery);
         canvas.drawPath(secpath, paint);
@@ -230,7 +228,6 @@ public class ClockView extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
         int o = 1;
-        Log.e("radius", radius + "");
         TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setTextSize(radius / 4.f);
 
@@ -340,6 +337,5 @@ public class ClockView extends View {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         handler.removeCallbacksAndMessages(null);
-
     }
 }
